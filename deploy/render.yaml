@@ -4,7 +4,7 @@ services:
     runtime: docker
     plan: free
     dockerfilePath: ./deploy/Dockerfile
-    region: fra
+    region: frankfurt
     healthCheckPath: /
     autoDeploy: true
     envVars:
