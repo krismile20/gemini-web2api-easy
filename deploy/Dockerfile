@@ -15,16 +15,15 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} \
     -o /out/easy_proxies ./cmd/easy_proxies
 
 # =============================================================================
-# Stage 2: build gemini-web2api-go (self-contained, no external clone)
+# Stage 2: build gemini-web2api-go (cloned from GitHub)
 # =============================================================================
 FROM golang:1.26 AS gemini-builder
 ARG TARGETARCH
+ARG GOPROXY=https://proxy.golang.org,direct
 WORKDIR /g
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} \
-    go build -ldflags="-s -w" -o /out/gemini-web2api-go .
+RUN git clone --depth 1 https://github.com/zexadev/gemini-web2api-go.git .
+RUN go env -w GOPROXY=${GOPROXY} && go mod download
+RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o /out/gemini-web2api-go .
 
 # =============================================================================
 # Stage 3: runtime
