@@ -28,10 +28,8 @@ RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o /out/gemini-web2api-go .
 # =============================================================================
 # Stage 3: runtime
 # =============================================================================
-FROM debian:bookworm-slim
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates timezone curl \
-    && rm -rf /var/lib/apt/lists/* \
+FROM alpine:3.20
+RUN apk add --no-cache ca-certificates tzdata curl \
     && mkdir -p /app /etc/easy_proxies /data
 
 COPY --from=easy-builder   /out/easy_proxies       /app/easy_proxies
