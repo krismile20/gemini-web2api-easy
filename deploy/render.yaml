@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: gemini-web2api-easy
+    runtime: docker
+    plan: free
+    dockerfilePath: ./deploy/Dockerfile
+    region: fra
+    port: 8083
+    healthCheckPath: /
+    healthCheckTimeout: 120
+    autoDeploy: true
+    envVars:
+      - key: EASY_SUB_URL
+        value: "https://234.qzz.io/fsllist64"
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: API_KEY
+        generateValue: true
+      - fromGroup: gemini-secrets
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
+
+envVarGroups:
+  - name: gemini-secrets
+    envVars:
+      - key: ADMIN_TOKEN
+        sync: false
+      - key: API_KEY
+        sync: false

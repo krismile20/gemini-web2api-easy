@@ -1,0 +1,36 @@
+mode: pool
+
+log_level: info
+
+log:
+  output: stdout
+
+listener:
+  address: 127.0.0.1
+  port: 2323
+  username: ""
+  password: ""
+
+pool:
+  mode: sequential
+  failure_threshold: 3
+  blacklist_duration: 2h
+  retry_enabled: true
+  retry_attempts: 2
+
+management:
+  enabled: false
+
+subscription_refresh:
+  enabled: true
+  interval: 1h
+  timeout: 30s
+  fetch_concurrency: 16
+  health_check_timeout: 60s
+  min_available_nodes: 1
+
+subscriptions:
+  - "__SUB_URL__"
+
+geoip:
+  enabled: false
