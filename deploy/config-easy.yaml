@@ -20,6 +20,9 @@ pool:
 
 management:
   enabled: false
+  probe_target: "http://cp.cloudflare.com/generate_204"
+
+skip_cert_verify: true
 
 subscription_refresh:
   enabled: true
