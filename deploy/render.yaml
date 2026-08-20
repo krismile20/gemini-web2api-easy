@@ -5,9 +5,7 @@ services:
     plan: free
     dockerfilePath: ./deploy/Dockerfile
     region: fra
-    port: 8083
     healthCheckPath: /
-    healthCheckTimeout: 120
     autoDeploy: true
     envVars:
       - key: EASY_SUB_URL
