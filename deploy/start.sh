@@ -4,7 +4,8 @@ set -e
 export EASY_SUB_URL="${EASY_SUB_URL:-}"
 
 if [ -z "$EASY_SUB_URL" ]; then
-  echo "[start.sh] WARNING: EASY_SUB_URL is empty, easy_proxies will have no subscription." >&2
+  echo "[start.sh] ERROR: EASY_SUB_URL is empty. Set it as a secret env var in Render, otherwise easy_proxies runs an empty node pool and all requests fail." >&2
+  exit 1
 fi
 
 # Substitute subscription URL into easy_proxies config (env-injected at boot).
